@@ -9,7 +9,8 @@ import (
 	"chatapp/contracts"
 )
 
-var ready = make(chan struct{}) // channel for signaloling to all other like await 
+//var ready = make(chan struct{}) // channel for signaloling to all other like await not needed 
+// once.do already handles this 
 var PubSubInstance *PubSubManager
 var Once sync.Once
 
@@ -34,9 +35,8 @@ func CreatePubSubInstance(brodaster contracts.BroadCaster) *PubSubManager{
 			BroadCaster: brodaster,
 			subscriptions:  make(map[string]struct{}),
 		}
-		close(ready)
+		
 	})
-	<-ready ; 
 	return PubSubInstance
 }
 
